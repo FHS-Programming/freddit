@@ -1,0 +1,40 @@
+.sidebar{
+	height:100%;
+	background: #252525;
+	width:25%;
+	position: fixed;
+	z-index: 2;
+	box-shadow: -5px 0px 30px 10px rgba(255, 255, 255, 0.45);
+}
+.close{
+	font-size:20px;
+	color: #FCFCFC;
+	transform: translateX(90%);
+	cursor: pointer;
+}
+.list{
+	width: 100%;
+
+}
+.list ul{
+	margin: 0;
+	padding:0;
+	width: 100%;
+	list-style-type: none;
+}
+.list ul li{
+	padding: 15px;
+	margin: 15px 0px 15px 0px;
+}
+.list ul li:hover{
+	background: rgba(225,225,225,0.5);
+}
+
+.overlay{
+	position:fixed;
+	height:100%;
+	width:100%;
+	z-index:1;
+	background: rgba(255, 255, 255, 0.27);
+}
+

@@ -1,0 +1,20 @@
+.profile{
+	width:70%;
+	background: #363636;
+	margin: 0px auto 0px auto;
+
+}
+.profilePicture {
+	height:100px;
+	width:100px;
+}
+.profilePicture img{
+	height:100px;
+	width:100px;
+}
+.userName{
+	background: rgba(255,255,255,0.2);
+	transform: translateY(-100%);
+}
+
+
