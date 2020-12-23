@@ -20,9 +20,12 @@
 	display: flex;
 }
 .comment, .like{
-
+	margin: 10px 20px 5px 0px;
+    min-width: 25px;
+    white-space: nowrap;
+	word-break: normal;
+}
+.comment i, .like i {
 	font-size:20px;
-	margin-top:15px;
-	margin-right: 15px;
 }
 

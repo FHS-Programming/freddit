@@ -1,26 +1,28 @@
-import React from 'react'
-import './Nav.css'
+import React from "react";
+import "./Nav.css";
 
-export default function Nav(props){
+export default function Nav(props) {
+  return (
+    <div className="nav">
+      <div className="menu" onClick={props.sidebar}>
+        <i className="fa fa-bars 5x"></i>
+      </div>
 
-	return (
-<div className="nav">
-		<div className="menu" onClick={props.sidebar}>
-		<i class="fa fa-bars 5x"></i>
-		</div>
+      <div className="search">
+        <i className="fa fa-search"></i>
+        <input
+		  type="text"
+		  name="search"
+          placeholder="Search"
+		  maxLength="2048"
+		  autoComplete="off"
+          spellCheck="false"
+        />
+      </div>
 
-		<div className="search">
-			<i class="fa fa-search"></i>
-			<input type="text" placeholder="Search"/>
-			
-		</div>
-
-		<div className="avatar">
-		<i class="fa fa-user-circle-o"></i>
-		</div>
-</div>
-
-
-	);
-
+      <div className="avatar">
+        <i className="fa fa-user-circle-o"></i>
+      </div>
+    </div>
+  );
 }

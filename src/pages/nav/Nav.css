@@ -26,6 +26,10 @@
 .menu{
 	font-size:30px;
 	color: #ffff;
+	cursor: pointer;
+}
+.menu:hover{
+	color: #cabebe;
 }
 .avatar{
 	font-size: 30px;

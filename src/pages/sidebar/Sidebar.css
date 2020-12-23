@@ -1,40 +1,69 @@
-.sidebar{
-	height:100%;
-	background: #252525;
-	width:25%;
-	position: fixed;
-	z-index: 2;
-	box-shadow: -5px 0px 30px 10px rgba(255, 255, 255, 0.45);
+a {
+  text-decoration: none;
 }
-.close{
-	font-size:20px;
-	color: #FCFCFC;
-	transform: translateX(90%);
-	cursor: pointer;
-}
-.list{
-	width: 100%;
-
-}
-.list ul{
-	margin: 0;
-	padding:0;
-	width: 100%;
-	list-style-type: none;
-}
-.list ul li{
-	padding: 15px;
-	margin: 15px 0px 15px 0px;
-}
-.list ul li:hover{
-	background: rgba(225,225,225,0.5);
+.sideBar {
+  position: absolute;
+  z-index: 2;
+  background: #252525;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 300px;
+  height: 100%;
+  animation-name: open;
+  animation-duration: 0.5s;
 }
 
-.overlay{
-	position:fixed;
-	height:100%;
-	width:100%;
-	z-index:1;
-	background: rgba(255, 255, 255, 0.27);
+/* close side bar*/
+.closeSB {
+	animation-duration: 0.5s;
+	animation-name: close;
+}
+@keyframes close {
+	from {
+		transform: translateX(0);
+	  }
+	  to {
+		transform: translateX(-500px);
+	  }
 }
 
+@keyframes open {
+  from {
+    transform: translateX(-500px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.close {
+  font-size: 20px;
+  color: #fcfcfc;
+  transform: translateX(90%);
+  cursor: pointer;
+}
+.sideBar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sideBar ul li a {
+  display: block;
+  padding: 1em 1em 1em 1.2em;
+  outline: none;
+  box-shadow: inset 0 -1px rgba(0, 0, 0, 0.2);
+  color: #f3efe0;
+  text-transform: uppercase;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.overlay {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.27);
+}
