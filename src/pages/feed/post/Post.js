@@ -21,7 +21,7 @@ export default function Post(){
 		<div className="interactions">
 		<div className="comment">
 			<i className="fa fa-comment-o"></i>
-			<span> comment</span>
+			<span> Comment</span>
 		</div>
 		<div className="like">
 			<i className="fa fa-thumbs-o-up"></i>
