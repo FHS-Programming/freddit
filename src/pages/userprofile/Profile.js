@@ -11,7 +11,7 @@ export default function Profile(props){
 
 		<div className="profile">
 			<div className="profilePicture">
-				<img src={image}/>
+				<img src={image} alt="profile"/>
 		<div className="userName">
 		Username</div>
 		</div>	

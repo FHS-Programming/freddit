@@ -1,4 +1,5 @@
 import React from 'react'
+import Login from '../login/Login';
 import './Nav.css'
 
 export default function Nav(props){
@@ -14,10 +15,10 @@ export default function Nav(props){
 			<input type="text" placeholder="Search"/>
 			
 		</div>
-
-		<div className="avatar">
+    {!props.isLogged ? <Login/>: 		<div className="avatar">
 		<i class="fa fa-user-circle-o"></i>
-		</div>
+		</div> }
+
 </div>
 
 
