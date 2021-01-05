@@ -7,6 +7,8 @@ import Nav from "./pages/nav/Nav";
 import Sidebar from "./pages/sidebar/Sidebar";
 
 function App() {
+  const [isLogged, setIsLogged] = useState(false);
+
   const [sidebar, setSidebar] = useState(false);
   const toggleSidebar = () => {
     if (sidebar) {
@@ -20,7 +22,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         {sidebar ? <Sidebar toggle={toggleSidebar} /> : null}
-        <Nav sidebar={toggleSidebar} />
+        <Nav sidebar={toggleSidebar} isLogged={isLogged} />
 
         <Route exact path="/" component={Home} />
         <Route exact path="/profile" component={Profile} />

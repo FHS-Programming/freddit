@@ -1,0 +1,49 @@
+.login-modal{
+    position: fixed;
+    left:50%;
+    top: 50%;
+    transform: translate(-50%, -50%);    
+    background-color: #FFFFFF;
+    height: 50%;
+    width: 50%;
+    
+}
+
+
+.login-form{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+}
+
+.form-group{
+    padding: 15px;
+    display: flex;
+    width: 100%;
+    align-content: space-between;
+}
+
+.form-group label{
+    flex: 50%;
+}
+
+.form-group input[type="sumbit"]{
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    /* background-color: red; */
+    transform: translate(-50%);
+}
+
+
+.other-sign-in{
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%);
+}
+.other-sign-in button{
+    margin: 0 10px;
+}

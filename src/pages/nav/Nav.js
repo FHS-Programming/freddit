@@ -1,5 +1,6 @@
-import React from "react";
-import "./Nav.css";
+import React from 'react'
+import Login from '../login/Login';
+import './Nav.css'
 
 export default function Nav(props) {
   return (
@@ -20,9 +21,11 @@ export default function Nav(props) {
         />
       </div>
 
-      <div className="avatar">
-        <i className="fa fa-user-circle-o"></i>
-      </div>
-    </div>
+    {!props.isLogged ? <Login/>: 		<div className="avatar">
+		<i class="fa fa-user-circle-o"></i>
+		</div> }
+
+
+   </div>
   );
 }
