@@ -1,20 +1,41 @@
-.profile{
-	width:70%;
-	background: #363636;
-	margin: 0px auto 0px auto;
-
+.profile {
+  width: 70%;
+  background: #363636;
+  margin: 50px auto 0px auto;
 }
 .profilePicture {
-	height:100px;
-	width:100px;
+  height: 100%;
+  width: 100%;
+  padding: 50px 10px;
+  display: flex;
 }
-.profilePicture img{
-	height:100px;
-	width:100px;
+.profilePicture img {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: 5px solid #ffffff36;
 }
-.userName{
-	background: rgba(255,255,255,0.2);
-	transform: translateY(-100%);
+.profilePicture h6 {
+  color: #d7dadc;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-size: 20px;
+}
+.profileInfo {
+	margin: 30px;
+}
+.profileInfo h6 {
+	margin: 10px;
+	padding: 0px;
+	font-size: 15px;
 }
 
-
+.profilePost button{
+    height: 50px;
+    width: 50%;
+	margin: 10px;
+	cursor: pointer;
+}
+.profilePost {
+	display: flex;
+}

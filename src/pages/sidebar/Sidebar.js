@@ -1,6 +1,7 @@
 import React from 'react';
 import "./Sidebar.css";
 import Overlay from "./Overlay";
+import CloseIcon from '@material-ui/icons/Close';
 
 
 export default function Sidebar(props) {
@@ -17,11 +18,14 @@ export default function Sidebar(props) {
       <Overlay onClick={Bye} />
       <nav className="sideBar" id="sideBar">
         <div className="close" onClick={Bye}>
-          X
+          <CloseIcon color={"secondary"}/>
         </div>
         <ul>
           <li>
-            <a href="/">Hello World</a>
+            <h2>Menu</h2>
+          </li>
+          <li>
+            <a href="/profile">Profile Page</a>
           </li>
         </ul>
       </nav>
