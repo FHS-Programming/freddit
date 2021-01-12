@@ -1,12 +1,17 @@
 .post{
-	color: #FFFEFE;
-	background: #363636;
+	color: #FFFEFE !important;
+	background: #363636 !important;
 	width:80%;
 	margin: 5% auto 0% auto;
 	padding:15px;
 	border-radius: 10px;
 }	
-
+.post .MuiIconButton-root {
+	color: #FFFEFE !important;
+}
+.post .MuiTypography-colorTextSecondary {
+	color: #fffefe9d !important;
+}
 .userinfo{
 	display: flex;
 }

@@ -3,11 +3,19 @@
 	background-color:#871528;
 	padding: 15px;	
 	overflow-x: hidden;
-
+}
+.nav .MuiIconButton-root {
+	color: #FFFEFE !important;
 }
 .search{
 	width:90%;
 	margin: 0% 10% 0% 10% ;
+	display: flex;
+	background-color: #d1d1d1; 
+	align-items: center;
+	align-self: center;
+	border-radius: 5px;
+	padding: 10px;
 }
 .search i{
 	transform: translate(50%,40%);
@@ -18,8 +26,7 @@
 	padding: 5px;
 	padding-left:  30px;
 	outline: none;
-	border-radius: 5px;
-	border-size: 1px;
+	border: none;
 	background-color: #d1d1d1; 
 	width: 100%;
 }
