@@ -27,7 +27,7 @@ export default function Nav(props) {
         <SearchIcon />
       </div>
 
-      {props.isLogged ? (
+      {!props.isLogged ? (
         <Login />
       ) : (
         <div className="avatar">
