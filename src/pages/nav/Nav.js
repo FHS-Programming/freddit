@@ -6,6 +6,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Badge from "@material-ui/core/Badge";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
+import { Avatar } from "@material-ui/core";
 
 export default function Nav(props) {
   return (
@@ -33,7 +34,8 @@ export default function Nav(props) {
         <div className="avatar">
           <IconButton>
             <Badge badgeContent={4} color="primary" max={99}>
-              <AccountCircleIcon fontSize="large" />
+              <Avatar src={props.isLogged.photoURL}/>
+              {/* <AccountCircleIcon fontSize="large" /> */}
             </Badge>
           </IconButton>
         </div>
