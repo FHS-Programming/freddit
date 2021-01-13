@@ -9,7 +9,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import Popover from "@material-ui/core/Popover";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
-
+import { Avatar } from "@material-ui/core";
+import {auth} from "../../firebase";
 export default function Nav(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
@@ -47,7 +48,8 @@ export default function Nav(props) {
         <div className="avatar">
           <IconButton onClick={handleClick}>
             <Badge badgeContent={4} color="primary" max={99}>
-              <AccountCircleIcon fontSize="large" />
+              <Avatar src={props.isLogged.photoURL}/>
+              {/* <AccountCircleIcon fontSize="large" /> */}
             </Badge>
           </IconButton>
           <Popover
@@ -67,7 +69,7 @@ export default function Nav(props) {
             <MenuList>
               <MenuItem>Profile</MenuItem>
               <MenuItem>My account</MenuItem>
-              <MenuItem>Logout</MenuItem>
+              <MenuItem onClick={()=>{auth.signOut()}}>Logout</MenuItem>
             </MenuList>
           </Popover>
         </div>

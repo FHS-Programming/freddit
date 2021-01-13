@@ -3,8 +3,10 @@ import "./Login.css";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Badge from "@material-ui/core/Badge"
+import firebase from "firebase";
 
-function LoginModal() {
+
+function LoginModal({gmail}) {
   return (
     <>
       <div className="login-modal">
@@ -22,7 +24,7 @@ function LoginModal() {
           </div>
         </form>
         <div className="other-sign-in">
-          <button>Gmail</button>
+          <button onClick={gmail}>Gmail</button>
           <button>Github</button>
         </div>
       </div>
@@ -33,6 +35,12 @@ function LoginModal() {
 export default function Login() {
   const [loginModal, setLoginModal] = useState(false);
 
+  const gmail = () =>{
+    var provider =  new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then((result)=>{
+      
+    })
+  }
   const loginClick = () => {
     return loginModal ? setLoginModal(false) : setLoginModal(true);
   };
@@ -44,7 +52,8 @@ export default function Login() {
         </Badge>
       </IconButton>
       <br />
-      {loginModal ? <LoginModal /> : null}
+      {loginModal ? <LoginModal gmail={gmail}/> : null}
+
       {/* <button className="login_button">Log<span className="in_login">out</span></button></> */}
     </>
   );
