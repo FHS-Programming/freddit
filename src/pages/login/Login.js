@@ -2,57 +2,88 @@ import React, { useState } from "react";
 import "./Login.css";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import Badge from "@material-ui/core/Badge"
+import Badge from "@material-ui/core/Badge";
 import firebase from "firebase";
+import Modal from "@material-ui/core/Modal";
+import TextField from "@material-ui/core/TextField";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import Button from "@material-ui/core/Button";
+import googleImg from "../../googleLogo.jpg";
 
-
-function LoginModal({gmail}) {
+function LoginModal(props) {
+  const { gmail, openD, loginClose } = props;
   return (
-    <>
-      <div className="login-modal">
-        <form className="login-form">
-          <div className="form-group">
-            <label className="label">Email: </label>
-            <input type="text" name="email" />
+    <Modal
+      className="login-modal"
+      open={openD}
+      aria-labelledby="login-modal"
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      onClose={loginClose}
+    >
+      <Fade in={openD}>
+        <div className="modal">
+          <div className="contentM">
+          <h2 id="login-modal">Login Modal</h2>
+            <form className="login-form">
+              <TextField
+                type="email"
+                label="Email"
+                variant="outlined"
+                name="email"
+              />
+              <TextField
+                type="password"
+                label="Password"
+                variant="outlined"
+                name="password"
+              />
+              <Button type="sumbit" variant="contained" color="primary">
+                Login
+              </Button>
+            </form>
+            <div className="other-sign-in">
+              <Button onClick={gmail} variant="outlined">
+                <img src={googleImg} alt="G" className="googleIcon" />
+                Gmail
+              </Button>
+              <Button variant="outlined">Github</Button>
+            </div>
           </div>
-          <div className="form-group">
-            <label className="label">Password: </label>
-            <input type="password" name="password" />
-          </div>
-          <div className="form-group">
-            <input type="sumbit" value="Login" />
-          </div>
-        </form>
-        <div className="other-sign-in">
-          <button onClick={gmail}>Gmail</button>
-          <button>Github</button>
         </div>
-      </div>
-    </>
+      </Fade>
+    </Modal>
   );
 }
 
 export default function Login() {
   const [loginModal, setLoginModal] = useState(false);
 
-  const gmail = () =>{
-    var provider =  new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then((result)=>{
-      
-    })
-  }
-  const loginClick = () => {
-    return loginModal ? setLoginModal(false) : setLoginModal(true);
+  const gmail = () => {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {});
   };
+
+  const loginClick = () => {
+    setLoginModal(true);
+  };
+  const loginClose = () => {
+    setLoginModal(false);
+  };
+
   return (
     <>
       <IconButton onClick={loginClick}>
-        <Badge  color="primary" max={99}>
+        <Badge color="primary" max={99}>
           <AccountCircleIcon fontSize="large" />
         </Badge>
       </IconButton>
       <br />
-      {loginModal ? <LoginModal gmail={gmail}/> : null}
+      <LoginModal gmail={gmail} openD={loginModal} loginClose={loginClose} />
 
       {/* <button className="login_button">Log<span className="in_login">out</span></button></> */}
     </>

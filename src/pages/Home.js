@@ -13,7 +13,6 @@ export default function Home() {
 
   const handleClose = () => {
 	setOpen(false);
-	console.log("hi")
   };
   return (
     <>

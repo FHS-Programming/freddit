@@ -26,6 +26,7 @@ function App() {
         <Nav sidebar={toggleSidebar} isLogged={isLogged} />
 
         <Route exact path="/" component={Home} />
+        {/* <Route path="/Post/:id" component={CommentPg}/> */}
         <Route exact path="/profile" >
           <Profile isLogged={isLogged}/>
           </Route>

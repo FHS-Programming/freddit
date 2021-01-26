@@ -1,49 +1,45 @@
-.login-modal{
-    position: fixed;
-    left:50%;
-    top: 50%;
-    transform: translate(-50%, -50%);    
-    background-color: #FFFFFF;
-    height: 50%;
-    width: 50%;
-    
+.login-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-
-.login-form{
-    position: absolute;
-    left:50%;
-    top:50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
+.login-modal .modal {
+  background-color: white;
+  outline: none;
+  width: 600px;
+  max-width: 100%;
+  height: 400px;
+  max-height: 100%;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+  padding: 10px;
 }
-
-.form-group{
-    padding: 15px;
-    display: flex;
+.modal .contentM {
     width: 100%;
-    align-content: space-between;
+    height: 100%;
+}
+.googleIcon {
+  width: 100%;
+  height: 100%;
+  max-width: 25px;
+  margin-right: 10px;
 }
 
-.form-group label{
-    flex: 50%;
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100% !important;
+}
+.login-form > * {
+  margin-bottom: 10px !important;
 }
 
-.form-group input[type="sumbit"]{
-    text-align: center;
-    position: absolute;
-    left: 50%;
-    /* background-color: red; */
-    transform: translate(-50%);
+.other-sign-in {
+  justify-content: center;
+  display: flex;
 }
-
-
-.other-sign-in{
-    position: absolute;
-    bottom: 5%;
-    left: 50%;
-    transform: translate(-50%);
-}
-.other-sign-in button{
-    margin: 0 10px;
+.other-sign-in button {
+  margin: 0 10px;
 }
