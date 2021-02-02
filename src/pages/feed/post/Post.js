@@ -9,7 +9,6 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import CardActions from "@material-ui/core/CardActions";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-// import CardActionArea from "@material-ui/core/CardActionArea";
 
 export default function Post() {
   return (
