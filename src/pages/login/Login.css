@@ -3,11 +3,15 @@
   align-items: center;
   justify-content: center;
 }
+.login-modal .MuiButton-root {
+  width: 100%;
+}
 .login-modal .modal {
   background-color: white;
   outline: none;
-  width: 600px;
-  max-width: 100%;
+  width: 50vh;
+  min-width: 300px;
+  max-width: 700px;
   height: 400px;
   max-height: 100%;
   margin-left: 20px;

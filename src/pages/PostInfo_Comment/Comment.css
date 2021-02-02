@@ -1,0 +1,63 @@
+.CCMContain {
+    margin-top: 70px;
+}
+.commentContainer {
+    background: #363636 !important;
+    width: 70vw;
+    padding: 20px;
+    margin: 20px auto;
+    color: white !important;
+    border-radius: 4px;
+    word-break: break-word;
+}
+.closedComment {
+    border: 1px solid gray;
+    padding: 5px;
+    width: 90% !important;
+    margin: auto;
+    border-radius: 8px;
+}
+.loggedComment {
+    width: 90% !important;
+    margin: auto;
+}
+.commentInput {
+    color: white !important;
+    border-color: white !important;
+    background-color: rgba(179, 179, 179, 0.308) !important;
+    border-radius: 8px;
+    width: 100%;
+}
+.commentInput * {
+    color: white !important;
+}
+.closedComment > * {
+    margin: 10px;
+}
+
+.linkComment {
+    text-decoration: none !important;
+    color: gray !important;
+    font-weight: 600;
+}
+
+.commentUser {
+    color: #d7dadc;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+}
+#commentsA {
+    width: 90% !important;
+    margin: auto;
+}
+.commentText {
+    margin-top: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 21px;
+    word-break: break-word;
+    overflow: auto;
+    padding-bottom: 1px;
+    color: rgb(215, 218, 220);
+}

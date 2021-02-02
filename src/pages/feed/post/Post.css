@@ -5,7 +5,13 @@
 	margin: 5% auto 0% auto;
 	padding:15px;
 	border-radius: 10px;
+    border: 1px solid #353638;
 }	
+.post:hover {
+	cursor: pointer;
+	border: 1px solid rgba(255, 255, 255, 0.219);
+}
+
 .post .MuiIconButton-root {
 	color: #FFFEFE !important;
 }
