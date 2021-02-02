@@ -15,12 +15,10 @@ import SendIcon from "@material-ui/icons/Send";
 
 function Comment(props) {
   const [commentInput, setCommentInput] = useState("");
-  // console.log(props.match.params.id)
-
   const handleChange = (event) => {
     setCommentInput({ value: event.target.value });
   };
-  
+
   //submit comment
   const submitHander = (e) => {
     e.preventDefault();

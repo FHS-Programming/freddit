@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Login from "../login/Login";
 import "./Nav.css";
 import IconButton from "@material-ui/core/IconButton";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Badge from "@material-ui/core/Badge";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
@@ -10,7 +9,8 @@ import Popover from "@material-ui/core/Popover";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { Avatar } from "@material-ui/core";
-import {auth} from "../../firebase";
+import { auth } from "../../firebase";
+
 export default function Nav(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
@@ -39,7 +39,7 @@ export default function Nav(props) {
           autoComplete="off"
           spellCheck="false"
         />
-        <SearchIcon />
+          <SearchIcon />
       </div>
 
       {!props.isLogged ? (
@@ -48,8 +48,7 @@ export default function Nav(props) {
         <div className="avatar">
           <IconButton onClick={handleClick}>
             <Badge badgeContent={4} color="primary" max={99}>
-              <Avatar src={props.isLogged.photoURL}/>
-              {/* <AccountCircleIcon fontSize="large" /> */}
+              <Avatar src={props.isLogged.photoURL} />
             </Badge>
           </IconButton>
           <Popover
@@ -69,7 +68,13 @@ export default function Nav(props) {
             <MenuList>
               <MenuItem>Profile</MenuItem>
               <MenuItem>My account</MenuItem>
-              <MenuItem onClick={()=>{auth.signOut()}}>Logout</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  auth.signOut();
+                }}
+              >
+                Logout
+              </MenuItem>
             </MenuList>
           </Popover>
         </div>

@@ -16,7 +16,7 @@ export default function Home(props) {
   };
   return (
     <>
-      <Feed />
+      <Feed isLogged={props.isLogged} />
       {props.isLogged ? (
         <>
           <AddPostModal close={handleClose} openD={open} />

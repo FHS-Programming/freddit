@@ -11,9 +11,13 @@ function AddPostModal(props) {
     title: "",
     body: "",
   })
+  const onChangeInput = (e) => {
+    const { name, value } = e.target;
+    setPostInput({ ...postInput, [name]: value });
+  };
 
-  const submitPost = () => {
-    // submit post
+  const submitPost = (e) => {
+    e.preventDefault();
     console.log(postInput)
   }
   return (
@@ -32,13 +36,13 @@ function AddPostModal(props) {
       <Fade in={props.openD}>
         <div className="modal">
           <h2 id="modal-title">Something Modal</h2>
-          <form autoComplete="off" className="addPostForm" onClick={submitPost}>
+          <form autoComplete="off" className="addPostForm" onSubmit={submitPost}>
             <TextField
               id="standard-multiline-flexible"
               label="Title"
               name="title"
               value={postInput.title}
-              onChange={() => setPostInput({title: this.value})}
+              onChange={onChangeInput}
               multiline
               rowsMax={1}
               variant="filled"
@@ -46,8 +50,9 @@ function AddPostModal(props) {
             <TextField
               id="filled-multiline-static"
               label="Send a post"
+              name="body"
               value={postInput.body}
-              onChange={() => setPostInput({body: this.value})}              
+              onChange={onChangeInput}
               multiline
               rows={8}
               variant="filled"

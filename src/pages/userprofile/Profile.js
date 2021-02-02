@@ -38,12 +38,11 @@ export default function Profile(props) {
             <h6>Date Joined: </h6>
             <h6>Days: </h6>
             <h6>Title: </h6>
-            {/* days since when they first joined */}
           </div>
         </div>
         <TabContext value={value}>
           <AppBar position="static">
-            <TabList onChange={handleChange} aria-label="simple tabs example">
+            <TabList onChange={handleChange} aria-label="simple tabs example"  variant="fullWidth">
               <Tab label="Liked Post" value="1" />
               <Tab label="Your Post" value="2" />
             </TabList>

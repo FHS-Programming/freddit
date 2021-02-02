@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Post.css";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ModeCommentIcon from "@material-ui/icons/ModeComment";
@@ -9,27 +9,86 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import CardActions from "@material-ui/core/CardActions";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Popover from "@material-ui/core/Popover";
+import MenuList from "@material-ui/core/MenuList";
+import AssignmentIcon from "@material-ui/icons/Assignment";
+import { MenuItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import ReportIcon from "@material-ui/icons/Report";
 
-export default function Post() {
-  const clickCard = (e) => {
-    window.location = "/Comment";
+export default function Post(props) {
+  const [liked, setLiked] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
+  const id = open ? "edit-popover" : undefined;
+
+  // const clickCard = (e) => {
+  //   window.location = "/Comment";
+  // };
   const childClick = (e) => {
     e.stopPropagation();
   };
   const clickedLike = (e) => {
-      // when the user clicks like
-  }
+    e.preventDefault(); //not useful
+    setLiked((prev) => !prev);
+    // when the user clicks like
+  };
   return (
     <>
-      <Card className="post" onClick={clickCard}>
+      <Card
+        className="post"
+        onClick={() => (window.location = `/Comment/${1}`)}
+      >
         <CardHeader
           onClick={childClick}
           avatar={<Avatar aria-label="Recipe">R</Avatar>}
           action={
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
+            <>
+              <IconButton onClick={handleClick} style={{ cursor: "pointer" }}>
+                <MoreVertIcon />
+              </IconButton>
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+              >
+                <MenuList>
+                  <MenuItem
+                    onClick={() =>
+                      navigator.clipboard.writeText(
+                        `http://localhost:3000/Comment/${1}`
+                      )
+                    }
+                  >
+                    <ListItemIcon>
+                      <AssignmentIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Copy Link" />
+                  </MenuItem>
+
+                  <MenuItem>
+                    <ListItemIcon>
+                      <ReportIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Report" />
+                  </MenuItem>
+                </MenuList>
+              </Popover>
+            </>
           }
           title="Best title"
           subheader="September 14, 2016"
@@ -50,12 +109,21 @@ export default function Post() {
           ipsum, id commodo nulla. Morbi eget tempus diam.
         </Typography>
         <CardActions onClick={childClick}>
-          <IconButton>
+          <IconButton onClick={() => (window.location = `/Comment/${1}`)}>
             <ModeCommentIcon />
           </IconButton>
-          <IconButton onClick={clickedLike}>
-            <ThumbUpIcon />
-          </IconButton>
+          {props.isLogged ? (
+            <IconButton
+              onClick={clickedLike}
+              color={!liked ? "default" : "secondary"}
+            >
+              <ThumbUpIcon color={!liked ? "default" : "secondary"} />
+            </IconButton>
+          ) : (
+            <IconButton>
+              <ThumbUpIcon />
+            </IconButton>
+          )}
         </CardActions>
       </Card>
     </>
