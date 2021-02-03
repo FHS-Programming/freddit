@@ -74,7 +74,7 @@ export default function Post(props) {
                   <MenuItem
                     onClick={() =>
                       navigator.clipboard.writeText(
-                        `http://localhost:3000/Comment/${props.post.id}`
+                        `https://fhs-freddit.web.app/Comment/${props.post.id}`
                       )
                     }
                   >
