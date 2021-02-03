@@ -5,9 +5,11 @@ import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import "./addpost.css";
-import db from '../../../firebase';
+import db, { storage } from '../../../firebase';
 import firebase from 'firebase';
 import {v4} from 'uuid';
+import { AddCircleRounded } from "@material-ui/icons";
+import { Fab } from "@material-ui/core";
 
 function AddPostModal(props) {
   const [postInput, setPostInput] = useState({
@@ -19,10 +21,17 @@ function AddPostModal(props) {
     setPostInput({ ...postInput, [name]: value });
   };
 
+  let fileInput = React.createRef();
+
   const submitPost = (e) => {
     e.preventDefault();
     const postref = db.collection('posts');
     const id = v4();
+    let location = "pictures/"+props.user.uid+"/"+v4()
+    let pictureRef = storage.ref(location)
+    pictureRef.put(fileInput.current.files[0]).then((res)=>{
+      console.log(res);
+    })
     postref.add({
       title: postInput['title'],
       post: postInput['body'],
@@ -30,8 +39,13 @@ function AddPostModal(props) {
       userPhoto: props.user.photoURL,
       date: firebase.firestore.FieldValue.serverTimestamp(),
       id: id,
+      image: "gs://fhs-freddit.appspot.com/"+location,
     }).then(resp => {
       // console.log(resp);
+      setPostInput({
+        title: "",
+        body: "",
+      })
       props.close();
     }).catch(err=>{
       console.log(err);
@@ -75,6 +89,13 @@ function AddPostModal(props) {
               rows={8}
               variant="filled"
             />
+            <label htmlFor="upload-photo">
+              <input style={{display:'none'}}  ref={fileInput} id="upload-photo" name="upload-photo" type="file"/>
+              <Fab color="secondary"  variant="extended" component="span">
+                <AddCircleRounded/>{"  "}
+                Upload Image
+              </Fab>
+            </label>
             <Button variant="contained" color="primary" type="submit">
               Submit
             </Button>

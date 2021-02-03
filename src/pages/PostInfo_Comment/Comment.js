@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import ModeCommentIcon from "@material-ui/icons/ModeComment";
 import SendIcon from "@material-ui/icons/Send";
-import db from "../../firebase";
+import db, { storage } from "../../firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 function Comment(props) {
@@ -23,6 +23,7 @@ function Comment(props) {
   const [post] = useCollectionData(query);
   const commentQuery = commentsRef.where("postID","==",props.match.params.id)
   const [comments] = useCollectionData(commentQuery);
+  const [image, setImage] = useState('');
   //submit comment
   // console.log(props.isLogged)
   // console.log(comments)
@@ -31,7 +32,7 @@ function Comment(props) {
   //   commentsRef.where("postID","==",props.match.params.id).get().then(resp=>{
   //     console.log(resp.data());
   //   })},[]);
-
+  
   const submitHander = (e) => {
     e.preventDefault();
     commentsRef
@@ -46,7 +47,14 @@ function Comment(props) {
         console.log(res);
       });
   };
+  
   if (post && comments) {
+    if (post[0].image){
+      const gsRefrence = storage.refFromURL(post[0].image)
+      gsRefrence.getDownloadURL().then(img=>{
+        setImage(img)
+      })
+    }
     return (
       <div className="CCMContain">
         <div className="commentContainer">
@@ -58,6 +66,11 @@ function Comment(props) {
           </Grid>
           <br />
           <Typography paragraph>{post[0].post}</Typography>
+          <Box component="span" m={1}>
+          {image?(<>
+            <img src={image} style={{height:"40%",width:"50%"}}/>
+          </>):null}</Box>
+          
           <Grid container spacing={2}>
             <CardActionArea style={{ width: "fit-content" }}>
               <a href="#commentsA" className="linkComment">

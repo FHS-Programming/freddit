@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Post.css";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ModeCommentIcon from "@material-ui/icons/ModeComment";
@@ -12,12 +12,20 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Popover from "@material-ui/core/Popover";
 import MenuList from "@material-ui/core/MenuList";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import { MenuItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { MenuItem, ListItemIcon, ListItemText, Box, Container } from "@material-ui/core";
 import ReportIcon from "@material-ui/icons/Report";
+import db, { storage } from '../../../firebase';
+
 
 export default function Post(props) {
   const [liked, setLiked] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [image, setImage] = useState('');
+  const likeRef = db.collection('likes')
+  // console.log(props.post.id)
+  
+  
+  // console.log(likes)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -26,10 +34,12 @@ export default function Post(props) {
   };
   const open = Boolean(anchorEl);
   const id = open ? "edit-popover" : undefined;
-
-  // const clickCard = (e) => {
-  //   window.location = "/Comment";
-  // };
+  if (props.post.image){
+    const gsRefrence = storage.refFromURL(props.post.image)
+    gsRefrence.getDownloadURL().then(img=>{
+      setImage(img)
+    })
+  }
   const childClick = (e) => {
     e.stopPropagation();
   };
@@ -37,11 +47,14 @@ export default function Post(props) {
     e.preventDefault(); //not useful
     setLiked((prev) => !prev);
     // when the user clicks like
+    likeRef.add({
+      postID: props.post.id,
+      userID: props.isLogged.uid,
+      user: props.isLogged.displayName,
+    })
   };
-  // console.log(props.post.date)
   const date = Date(props.post.date)
-  // console.log(date)
-  console.log(props.post.id);
+
   return (
     <>
       <Card
@@ -98,8 +111,12 @@ export default function Post(props) {
           subheader={date.substr(0,15)}
         />
         <Typography paragraph>
-          {props.post.post} 
+        {props.post.post}
         </Typography>
+          <Box component="span" m={1}>
+          {props.post.image?(<>
+            <img src={image} style={{height:"40%",width:"50%"}}/>
+          </>):null}</Box>
         <CardActions onClick={childClick}>
           <IconButton onClick={() => (window.location = `/Comment/${props.post.id}`)}>
             <ModeCommentIcon />
