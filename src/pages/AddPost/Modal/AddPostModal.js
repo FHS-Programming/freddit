@@ -5,6 +5,9 @@ import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import "./addpost.css";
+import db from '../../../firebase';
+import firebase from 'firebase';
+import {v4} from 'uuid';
 
 function AddPostModal(props) {
   const [postInput, setPostInput] = useState({
@@ -18,7 +21,22 @@ function AddPostModal(props) {
 
   const submitPost = (e) => {
     e.preventDefault();
-    console.log(postInput)
+    const postref = db.collection('posts');
+    const id = v4();
+    postref.add({
+      title: postInput['title'],
+      post: postInput['body'],
+      user: props.user.displayName,
+      userPhoto: props.user.photoURL,
+      date: firebase.firestore.FieldValue.serverTimestamp(),
+      id: id,
+    }).then(resp => {
+      // console.log(resp);
+      props.close();
+    }).catch(err=>{
+      console.log(err);
+    })
+    // console.log(postInput)
   }
   return (
     <Modal
