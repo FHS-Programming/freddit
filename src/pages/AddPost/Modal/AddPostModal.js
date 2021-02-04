@@ -1,21 +1,22 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import "./addpost.css";
-import db, { storage } from '../../../firebase';
-import firebase from 'firebase';
-import {v4} from 'uuid';
-import { AddCircleRounded } from "@material-ui/icons";
-import { Fab } from "@material-ui/core";
+import db, { storage } from "../../../firebase";
+import firebase from "firebase";
+import { v4 } from "uuid";
+import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
+// import { AddCircleRounded } from "@material-ui/icons";
+// import { Fab } from "@material-ui/core";
 
 function AddPostModal(props) {
   const [postInput, setPostInput] = useState({
     title: "",
     body: "",
-  })
+  });
   const onChangeInput = (e) => {
     const { name, value } = e.target;
     setPostInput({ ...postInput, [name]: value });
@@ -25,33 +26,36 @@ function AddPostModal(props) {
 
   const submitPost = (e) => {
     e.preventDefault();
-    const postref = db.collection('posts');
+    const postref = db.collection("posts");
     const id = v4();
-    let location = "pictures/"+props.user.uid+"/"+v4()
-    let pictureRef = storage.ref(location)
-    pictureRef.put(fileInput.current.files[0]).then((res)=>{
-      console.log(res);
-    })
-    postref.add({
-      title: postInput['title'],
-      post: postInput['body'],
-      user: props.user.displayName,
-      userPhoto: props.user.photoURL,
-      date: firebase.firestore.FieldValue.serverTimestamp(),
-      id: id,
-      image: "gs://fhs-freddit.appspot.com/"+location,
-    }).then(resp => {
-      // console.log(resp);
-      setPostInput({
-        title: "",
-        body: "",
+    let location = "pictures/" + props.user.uid + "/" + v4();
+    let pictureRef = storage.ref(location);
+    pictureRef.put(fileInput.current.files[0]).then((res) => {
+      console.log("");
+    });
+    postref
+      .add({
+        title: postInput["title"],
+        post: postInput["body"],
+        user: props.user.displayName,
+        userPhoto: props.user.photoURL,
+        date: firebase.firestore.FieldValue.serverTimestamp(),
+        id: id,
+        image: "gs://fhs-freddit.appspot.com/" + location,
       })
-      props.close();
-    }).catch(err=>{
-      console.log(err);
-    })
+      .then((resp) => {
+        // console.log(resp);
+        setPostInput({
+          title: "",
+          body: "",
+        });
+        props.close();
+      })
+      .catch((err) => {
+        console.log("Please try again");
+      });
     // console.log(postInput)
-  }
+  };
   return (
     <Modal
       className="modalContainer"
@@ -68,7 +72,11 @@ function AddPostModal(props) {
       <Fade in={props.openD}>
         <div className="modal">
           <h2 id="modal-title">Something Modal</h2>
-          <form autoComplete="off" className="addPostForm" onSubmit={submitPost}>
+          <form
+            autoComplete="off"
+            className="addPostForm"
+            onSubmit={submitPost}
+          >
             <TextField
               id="standard-multiline-flexible"
               label="Title"
@@ -89,13 +97,28 @@ function AddPostModal(props) {
               rows={8}
               variant="filled"
             />
-            <label htmlFor="upload-photo">
-              <input style={{display:'none'}}  ref={fileInput} id="upload-photo" name="upload-photo" type="file"/>
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{width: '160px', backgroundColor: '#273046'}}
+              component="label"
+              startIcon={<AddPhotoAlternateIcon />}
+            >
+              Upload File
+              <input
+                ref={fileInput}
+                id="upload-photo"
+                name="upload-photo"
+                type="file"
+                hidden
+              />
+            </Button>
+            {/* <label htmlFor="upload-photo">
               <Fab color="secondary"  variant="extended" component="span">
                 <AddCircleRounded/>{"  "}
                 Upload Image
               </Fab>
-            </label>
+            </label> */}
             <Button variant="contained" color="primary" type="submit">
               Submit
             </Button>

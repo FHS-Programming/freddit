@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Post from "./post/Post";
 import db from "../../firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { Skeleton } from "@material-ui/lab";
+import "./Feed.css";
 
-export default function Feed({ isLogged }) {
+function Feed({ isLogged }) {
   const postRef = db.collection("posts");
-  const [posts] = useCollectionData(postRef);
+  const query = postRef.orderBy("date");
+  const [posts] = useCollectionData(query);
+  return (
+    <div className="feed">
+      {posts &&
+        posts
+          .reverse()
+          .map((post, i) => <Post isLogged={isLogged} post={post} key={i} />)}
 
-  console.log(posts);
-  if (posts) {
-    return (
-      <>
-        <div className="feed">
-          {posts.map((post, i) => (
-            <Post isLogged={isLogged} post={post} key={i}/>
-          ))}
-        </div>
-      </>
-    );
-  } else {
-	  return(
-	  <>
-	  	<Skeleton variant="circle" height={100}/>
-		  <Skeleton color="secondary" animation="wave" variant="rect" height={300} width={900}/>
-		</>	);
-  }
+      {!posts ? (
+        <>
+          <Skeleton variant="circle" height={100} />
+          <Skeleton animation="wave" variant="rect" height={300} width={900} />
+        </>
+      ) : null}
+    </div>
+  );
 }
+export default Feed;

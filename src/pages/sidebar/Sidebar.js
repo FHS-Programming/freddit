@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import Overlay from "./Overlay";
 import CloseIcon from "@material-ui/icons/Close";
 
-export default function Sidebar(props) {
+function Sidebar(props) {
   const Bye = () => {
     var hello = document.getElementById("sideBar");
     hello.classList.add("closeSB");
@@ -32,3 +32,5 @@ export default function Sidebar(props) {
     </>
   );
 }
+
+export default Sidebar;
