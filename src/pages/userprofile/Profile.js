@@ -8,6 +8,7 @@ import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
 import AppBar from "@material-ui/core/AppBar";
+import YourPost from "./YourPosts/YourPost";
 
 export default function Profile(props) {
   const [value, setValue] = useState("1");
@@ -48,7 +49,7 @@ export default function Profile(props) {
             </TabList>
           </AppBar>
           <TabPanel value="1">Item One</TabPanel>
-          <TabPanel value="2">Item Two</TabPanel>
+          <TabPanel value="2"><YourPost user={props.isLogged}/></TabPanel>
         </TabContext>
       </div>
     </>

@@ -9,8 +9,7 @@ import db, { storage } from "../../../firebase";
 import firebase from "firebase";
 import { v4 } from "uuid";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-// import { AddCircleRounded } from "@material-ui/icons";
-// import { Fab } from "@material-ui/core";
+import { FlareSharp } from "@material-ui/icons";
 
 function AddPostModal(props) {
   const [postInput, setPostInput] = useState({
@@ -23,7 +22,7 @@ function AddPostModal(props) {
   };
 
   let fileInput = React.createRef();
-
+  const [pictureUpload, setPictureUPload] = useState(false);
   const submitPost = (e) => {
     e.preventDefault();
     const postref = db.collection("posts");
@@ -31,8 +30,9 @@ function AddPostModal(props) {
     let location = "pictures/" + props.user.uid + "/" + v4();
     let pictureRef = storage.ref(location);
     pictureRef.put(fileInput.current.files[0]).then((res) => {
-      console.log("");
+      setPictureUPload(true);
     });
+    if (pictureUpload){
     postref
       .add({
         title: postInput["title"],
@@ -41,20 +41,42 @@ function AddPostModal(props) {
         userPhoto: props.user.photoURL,
         date: firebase.firestore.FieldValue.serverTimestamp(),
         id: id,
+        userId:props.user.uid,
         image: "gs://fhs-freddit.appspot.com/" + location,
       })
       .then((resp) => {
-        // console.log(resp);
         setPostInput({
           title: "",
           body: "",
         });
+        
         props.close();
       })
       .catch((err) => {
         console.log("Please try again");
       });
-    // console.log(postInput)
+    }else{postref
+      .add({
+        title: postInput["title"],
+        post: postInput["body"],
+        user: props.user.displayName,
+        userPhoto: props.user.photoURL,
+        date: firebase.firestore.FieldValue.serverTimestamp(),
+        id: id,
+        userId: props.user.uid,
+      })
+      .then((resp) => {
+        setPostInput({
+          title: "",
+          body: "",
+        });
+        
+        props.close();
+      })
+      .catch((err) => {
+        console.log("Please try again");
+      });
+    }
   };
   return (
     <Modal

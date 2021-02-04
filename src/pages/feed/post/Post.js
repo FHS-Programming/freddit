@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Post.css";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ModeCommentIcon from "@material-ui/icons/ModeComment";
@@ -21,15 +21,23 @@ import {
 } from "@material-ui/core";
 import ReportIcon from "@material-ui/icons/Report";
 import db, { storage } from "../../../firebase";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export default function Post(props) {
   const [liked, setLiked] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [image, setImage] = useState("");
   const likeRef = db.collection("likes");
-  // console.log(props.post.id)
 
-  // console.log(likes)
+  const query = likeRef.where("userID", "==", props.isLogged.uid).where("postID","==", props.post.id);
+  const [likes] = useCollectionData(query);
+  useEffect(()=>{
+   if(likes){
+    if (likes.length>=1){
+   setLiked(true); 
+    } }
+  },[likes])
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -49,13 +57,13 @@ export default function Post(props) {
   };
   const clickedLike = (e) => {
     e.preventDefault(); // not useful
-    setLiked((prev) => !prev);
-    // when the user clicks like
+    if(!liked && props.isLogged){
     likeRef.add({
       postID: props.post.id,
       userID: props.isLogged.uid,
       user: props.isLogged.displayName,
     });
+  }
   };
   const date = Date(props.post.date);
 
