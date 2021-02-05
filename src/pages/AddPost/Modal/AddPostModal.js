@@ -29,10 +29,10 @@ function AddPostModal(props) {
     const id = v4();
     let location = "pictures/" + props.user.uid + "/" + v4();
     let pictureRef = storage.ref(location);
-    pictureRef.put(fileInput.current.files[0]).then((res) => {
-      setPictureUPload(true);
-    });
-    if (pictureUpload){
+    if (fileInput.current.files[0]){
+      pictureRef.put(fileInput.current.files[0]).then((res) => {
+        
+      });
     postref
       .add({
         title: postInput["title"],

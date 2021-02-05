@@ -35,7 +35,7 @@ export default function Nav(props) {
 
   return (
     <>
-      {sidebar ? <Sidebar toggle={toggleSidebar} /> : null}
+      {sidebar ? <Sidebar toggle={toggleSidebar} isLogged={props.isLogged}/> : null}
       <div className="nav">
         <div className="menu" onClick={toggleSidebar}>
           <IconButton>

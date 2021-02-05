@@ -23,7 +23,7 @@ export default function Profile(props) {
             {props.isLogged ? (
               <>
                 <Avatar
-                  alt={props.isLogged.displayName || "P"}
+                  // alt={props.isLogged.displayName || "P"}
                   src={props.isLogged.photoURL}
                 />
                 <h6>{props.isLogged.displayName}</h6>

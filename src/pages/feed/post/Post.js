@@ -26,18 +26,32 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 export default function Post(props) {
   const [liked, setLiked] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [likeAnchorEl, setlikeAnchorEl] = useState(null);
+
   const [image, setImage] = useState("");
   const likeRef = db.collection("likes");
-
-  const query = likeRef.where("userID", "==", props.isLogged.uid).where("postID","==", props.post.id);
+  const [userId, setUserId] = useState("1");
+  const allLikeQuery = likeRef.where("postID", "==", props.post.id);
+  const query = likeRef
+    .where("userID", "==", userId)
+    .where("postID", "==", props.post.id);
   const [likes] = useCollectionData(query);
-  useEffect(()=>{
-   if(likes){
-    if (likes.length>=1){
-   setLiked(true); 
-    } }
-  },[likes])
-  
+  const [allLikes] = useCollectionData(allLikeQuery);
+
+  const [likeList, setLikeList] = useState(false);
+
+  useEffect(() => {
+    if (props.isLogged) {
+      setUserId(props.isLogged.uid);
+    }
+    if (likes) {
+      if (likes.length >= 1) {
+        setLiked(true);
+      }
+      else{setLiked(false);}
+    }
+  }, [likes]);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -46,6 +60,8 @@ export default function Post(props) {
   };
   const open = Boolean(anchorEl);
   const id = open ? "edit-popover" : undefined;
+
+  const likeId = open ? "like-popover" : undefined;
   if (props.post.image) {
     const gsRefrence = storage.refFromURL(props.post.image);
     gsRefrence.getDownloadURL().then((img) => {
@@ -57,15 +73,20 @@ export default function Post(props) {
   };
   const clickedLike = (e) => {
     e.preventDefault(); // not useful
-    if(!liked && props.isLogged){
-    likeRef.add({
-      postID: props.post.id,
-      userID: props.isLogged.uid,
-      user: props.isLogged.displayName,
-    });
-  }
+    if (!liked) {
+      likeRef.add({
+        postID: props.post.id,
+        userID: props.isLogged.uid,
+        user: props.isLogged.displayName,
+      });
+    }
   };
   const date = Date(props.post.date);
+  const likeHover = (e) => {
+    e.preventDefault();
+    setLikeList(!likeList);
+    setlikeAnchorEl(!likeList ? e.currentTarget : null);
+  };
 
   return (
     <>
@@ -129,7 +150,11 @@ export default function Post(props) {
           <Typography paragraph>{props.post.post}</Typography>
           {props.post.image ? (
             <Box component="span" m={1}>
-              <img src={image} style={{ height: "40%", width: "50%" }} alt={props.post.title}/>
+              <img
+                src={image}
+                style={{ height: "40%", width: "50%" }}
+                alt={props.post.title}
+              />
             </Box>
           ) : null}
         </CardContent>
@@ -140,16 +165,84 @@ export default function Post(props) {
             <ModeCommentIcon />
           </IconButton>
           {props.isLogged ? (
-            <IconButton
-              onClick={clickedLike}
-              color={!liked ? "default" : "secondary"}
-            >
-              <ThumbUpIcon color={!liked ? "default" : "secondary"} />
-            </IconButton>
+            <>
+              <IconButton
+                onClick={clickedLike}
+                color={!liked ? "default" : "secondary"}
+              >
+                <ThumbUpIcon color={!liked ? "default" : "secondary"} />
+              </IconButton>
+              <Popover
+                id={likeId}
+                // open={open}
+                anchorEl={likeAnchorEl}
+                open={likeList}
+                onClose={likeHover}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+              >
+                {allLikes ? (
+                  <MenuList>
+                    {allLikes.map((likes, i) => (
+                      <>
+                        <MenuItem>{likes.user}</MenuItem>
+                      </>
+                    ))}
+                  </MenuList>
+                ) : null}
+              </Popover>
+              {allLikes ? (
+                <>
+                  <span onClick={likeHover}>{allLikes.length}</span>
+                </>
+              ) : (
+                "0"
+              )}
+            </>
           ) : (
-            <IconButton>
-              <ThumbUpIcon />
-            </IconButton>
+            <>
+              <IconButton>
+                <ThumbUpIcon />
+              </IconButton>
+              <Popover
+                id={likeId}
+                // open={open}
+                anchorEl={likeAnchorEl}
+                open={likeList}
+                onClose={likeHover}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+              >
+                {allLikes ? (
+                  <MenuList>
+                    {allLikes.map((likes, i) => (
+                      <>
+                        <MenuItem>{likes.user}</MenuItem>
+                      </>
+                    ))}
+                  </MenuList>
+                ) : null}
+              </Popover>
+              {allLikes ? (
+                <>
+                  <span onClick={likeHover}>{allLikes.length}</span>
+                </>
+              ) : (
+                "0"
+              )}
+            </>
           )}
         </CardActions>
       </Card>

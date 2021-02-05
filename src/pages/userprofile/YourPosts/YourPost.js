@@ -8,13 +8,17 @@ export default function YourPost(props){
    const postRef = db.collection('posts')
    const query = postRef.where("userId","==", props.user.uid) 
    const [posts] = useCollectionData(query); 
-   console.log(posts);
+//    console.log(posts);
     if(posts){
+        if(posts.length>=1){
         return(<>
             {posts.reverse().map((post, i)=>(<>
                 <Post post={post} key={i} isLogged={props.user}/>
             </>))}
         </>)
+        }else{
+            return (<>Your posts are displayed here!!</>)
+        }
     }
     return (<>Your posts are displayed here!!</>)
 }
