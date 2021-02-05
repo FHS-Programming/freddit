@@ -22,6 +22,7 @@ import {
 import ReportIcon from "@material-ui/icons/Report";
 import db, { storage } from "../../../firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import PostSkeleton from "./PostSkeleton";
 
 export default function Post(props) {
   const [liked, setLiked] = useState(false);

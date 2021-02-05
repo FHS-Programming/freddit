@@ -4,6 +4,7 @@ import db from "../../firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { Skeleton } from "@material-ui/lab";
 import "./Feed.css";
+import PostSkeleton from "./post/PostSkeleton";
 
 function Feed({ isLogged }) {
   const postRef = db.collection("posts");
@@ -18,8 +19,7 @@ function Feed({ isLogged }) {
 
       {!posts ? (
         <>
-          <Skeleton variant="circle" height={100} />
-          <Skeleton animation="wave" variant="rect" height={300} width={900} />
+          <PostSkeleton/>
         </>
       ) : null}
     </div>

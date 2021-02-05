@@ -44,7 +44,7 @@
 .commentUser {
     color: #d7dadc;
     font-size: 13px;
-    font-weight: 400;
+    font-weight: 700;
     line-height: 16px;
 }
 #commentsA {
@@ -54,7 +54,6 @@
 .commentText {
     margin-top: 6px;
     font-size: 15px;
-    font-weight: 500;
     line-height: 21px;
     word-break: break-word;
     overflow: auto;
