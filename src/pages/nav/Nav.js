@@ -78,8 +78,8 @@ export default function Nav(props) {
               }}
             >
               <MenuList>
-                <MenuItem>Profile</MenuItem>
-                <MenuItem>My account</MenuItem>
+                <MenuItem><a href="/profile">Profile</a></MenuItem>
+                {/* <MenuItem>My account</MenuItem> */}
                 <MenuItem
                   onClick={() => {
                     auth.signOut();

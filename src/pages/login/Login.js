@@ -25,8 +25,8 @@ function LoginModal(props) {
       <Fade in={openD}>
         <div className="modal">
           <div className="contentM">
-          <h2 id="login-modal">Login Modal</h2>
-            <form className="login-form">
+          <h2 id="login-modal">Login</h2>
+            {/* <form className="login-form">
               <TextField
                 type="email"
                 label="Email"
@@ -42,13 +42,14 @@ function LoginModal(props) {
               <Button type="sumbit" variant="contained" color="primary">
                 Login
               </Button>
-            </form>
+            </form> */}
             <div className="other-sign-in">
-              <Button onClick={gmail} variant="outlined">
+            {/* <Button style={{color:"white", background:"#3267d6" }}   color="primary" onClick={gmail} startIcon={<img src={googleImg} className="googleIcon" alt="google icon" />} >Sign in with google </Button> */}
+              <Button onClick={gmail} variant="outlined" color="primary" style={{padding:"0%"}}>
                 <img src={googleImg} alt="G" className="googleIcon" />
-                Gmail
+                <Button style={{color:"white", background:"#3267d6" }}>Sign in with Gmail</Button>
               </Button>
-              <Button variant="outlined">Github</Button>
+              {/* <Button variant="outlined">Github</Button> */}
             </div>
           </div>
         </div>
