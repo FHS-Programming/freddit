@@ -80,9 +80,19 @@ export default function Post(props) {
         userID: props.isLogged.uid,
         user: props.isLogged.displayName,
       });
+
+    }
+    else{
+      const like = likeRef
+    .where("userID", "==", userId)
+    .where("postID", "==", props.post.id).get().then(resp=>{
+      resp.forEach(doc=> likeRef.doc(doc.id).delete().then(()=>{}).catch(()=>{alert("Error")}));
+    })
     }
   };
-  const date = Date(props.post.date);
+
+
+  const date = props.post.date.toDate().toString();
   const likeHover = (e) => {
     e.preventDefault();
     setLikeList(!likeList);
