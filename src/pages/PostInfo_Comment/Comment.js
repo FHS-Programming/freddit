@@ -72,7 +72,9 @@ function Comment(props) {
           <Box component="span" m={1}>
             {image ? (
               <>
-                <img src={image} style={{ height: "40%", width: "50%" }} />
+                <a href={image} target="_blank">
+                  <img src={image} style={{ height: "40%", width: "50%" }} />
+                </a>
               </>
             ) : null}
           </Box>
@@ -125,17 +127,17 @@ function Comment(props) {
           <br />
           <div id="commentsA">
             {comments.map((comment, i) => (
-                <div className="commentDivider" key={i}>
-                  <Grid container spacing={2} justify="flex-start">
-                    <Grid item>
-                      <Avatar src={comment.photoURL}></Avatar>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <span className="commentUser">{comment.user}</span>
-                      <p className="commentText">{comment.comment}</p>
-                    </Grid>
+              <div className="commentDivider" key={i}>
+                <Grid container spacing={2} justify="flex-start">
+                  <Grid item>
+                    <Avatar src={comment.photoURL}></Avatar>
                   </Grid>
-                </div>
+                  <Grid item xs={6}>
+                    <span className="commentUser">{comment.user}</span>
+                    <p className="commentText">{comment.comment}</p>
+                  </Grid>
+                </Grid>
+              </div>
             ))}
           </div>
         </div>
