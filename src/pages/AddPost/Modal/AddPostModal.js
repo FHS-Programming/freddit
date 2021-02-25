@@ -108,6 +108,7 @@ function AddPostModal(props) {
               multiline
               rowsMax={1}
               variant="filled"
+              required
             />
             <TextField
               id="filled-multiline-static"
@@ -118,6 +119,7 @@ function AddPostModal(props) {
               multiline
               rows={8}
               variant="filled"
+              required
             />
             <Button
               variant="contained"
