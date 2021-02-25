@@ -48,8 +48,9 @@ export default function Post(props) {
     if (likes) {
       if (likes.length >= 1) {
         setLiked(true);
+      } else {
+        setLiked(false);
       }
-      else{setLiked(false);}
     }
   }, [likes]);
 
@@ -80,17 +81,24 @@ export default function Post(props) {
         userID: props.isLogged.uid,
         user: props.isLogged.displayName,
       });
-
-    }
-    else{
+    } else {
       const like = likeRef
-    .where("userID", "==", userId)
-    .where("postID", "==", props.post.id).get().then(resp=>{
-      resp.forEach(doc=> likeRef.doc(doc.id).delete().then(()=>{}).catch(()=>{alert("Error")}));
-    })
+        .where("userID", "==", userId)
+        .where("postID", "==", props.post.id)
+        .get()
+        .then((resp) => {
+          resp.forEach((doc) =>
+            likeRef
+              .doc(doc.id)
+              .delete()
+              .then(() => {})
+              .catch(() => {
+                alert("Error");
+              })
+          );
+        });
     }
   };
-
 
   const date = props.post.date.toDate().toString();
   const likeHover = (e) => {
@@ -106,10 +114,9 @@ export default function Post(props) {
         onClick={() => (window.location = `/Comment/${props.post.id}`)}
       >
         <CardHeader
-          onClick={childClick}
-          avatar={<Avatar src={props.post.userPhoto} />}
+          avatar={<Avatar src={props.post.userPhoto} onClick={childClick}/>}
           action={
-            <>
+            <span onClick={childClick}>
               <IconButton onClick={handleClick} style={{ cursor: "pointer" }}>
                 <MoreVertIcon />
               </IconButton>
@@ -149,9 +156,9 @@ export default function Post(props) {
                   </MenuItem>
                 </MenuList>
               </Popover>
-            </>
+            </span>
           }
-          title={props.post.user}
+          title={<span onClick={childClick}>{props.post.user}</span>}
           subheader={`${date.substr(0, 15)}`}
         />
         <CardContent>
@@ -160,13 +167,15 @@ export default function Post(props) {
           </Typography>
           <Typography paragraph>{props.post.post}</Typography>
           {props.post.image ? (
-            <Box component="span" m={1}>
-              <img
-                src={image}
-                style={{ height: "40%", width: "50%" }}
-                alt={props.post.title}
-              />
-            </Box>
+            <>
+              <div style={{ maxWidth: "400px" }}>
+                <img
+                  src={image}
+                  style={{ height: "100%", width: "100%" }}
+                  alt={props.post.title}
+                />
+              </div>
+            </>
           ) : null}
         </CardContent>
         <CardActions onClick={childClick}>

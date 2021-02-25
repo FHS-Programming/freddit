@@ -1,6 +1,10 @@
 .CCMContain {
     margin-top: 70px;
 }
+.CCMBackCOnt {
+    width: 73vw;
+    margin: auto;
+}
 .commentContainer {
     background: #363636 !important;
     width: 70vw;
@@ -10,6 +14,22 @@
     border-radius: 4px;
     word-break: break-word;
 }
+.commentContainer .MuiTypography-colorTextSecondary {
+    color: #fffefe9d !important;
+}
+.commentContainer .MuiIconButton-root {
+    color: #fffefe!important;
+}
+.fullScreenImage {
+    width: auto;
+    height: 95%;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    z-index: 10000;
+    position: fixed;
+}
+
 .closedComment {
     border: 1px solid gray;
     padding: 5px;
