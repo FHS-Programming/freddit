@@ -1,0 +1,13 @@
+.notificationList{
+    position:fixed;
+    right:1%;
+    top:7%;
+    width: 100%;
+    max-width: 360px;
+    background-color: #363636;
+    color:white;
+}
+
+.notificationList .MuiTypography-colorTextSecondary{
+    color:#fffefe9d;
+}

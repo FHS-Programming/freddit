@@ -31,6 +31,7 @@ export default function Post(props) {
 
   const [image, setImage] = useState("");
   const likeRef = db.collection("likes");
+  const notificationRef = db.collection("notification");
   const [userId, setUserId] = useState("1");
   const allLikeQuery = likeRef.where("postID", "==", props.post.id);
   const query = likeRef
@@ -81,6 +82,15 @@ export default function Post(props) {
         userID: props.isLogged.uid,
         user: props.isLogged.displayName,
       });
+      notificationRef.add({
+        postID: props.post.id,
+        fromUID : props.isLogged.uid,
+        fromUser: props.isLogged.displayName,
+        fromPhoto: props.isLogged.photoURL,
+        toUID: props.post.userId,
+        action: "liked your",
+        unRead: true,
+      })
     } else {
       const like = likeRef
         .where("userID", "==", userId)

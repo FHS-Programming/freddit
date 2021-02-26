@@ -52,7 +52,7 @@ function Comment(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [liked, setLiked] = useState(false);
   const [userId, setUserId] = useState("1");
-
+  const notificationRef = db.collection('notification');
   const likeRef = db.collection("likes");
   const allLikeQuery = likeRef.where("postID", "==", props.match.params.id);
   const query2 = likeRef
@@ -123,6 +123,15 @@ function Comment(props) {
       })
       .then((res) => {
         setCommentInput("");
+      });
+      notificationRef.add({
+        postID: post[0].id,
+        fromUID : props.isLogged.uid,
+        fromUser: props.isLogged.displayName,
+        fromPhoto: props.isLogged.photoURL,
+        toUID: post[0].userId,
+        action: "commented on your",
+        unRead: true,
       });
   };
   const pressedEnter = (e) => {

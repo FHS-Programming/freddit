@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Login from "../login/Login";
 import "./Nav.css";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,12 +9,17 @@ import Popover from "@material-ui/core/Popover";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { Avatar } from "@material-ui/core";
-import { auth } from "../../firebase";
+import db, { auth } from "../../firebase";
 import Sidebar from "../sidebar/Sidebar";
+import Notification from "../notification/Notification";
+
+import NotificationIcon from "../notification/NotificationIcon";
 
 export default function Nav(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [sidebar, setSidebar] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+ 
   const toggleSidebar = () => {
     if (sidebar) {
       setSidebar(false);
@@ -22,7 +27,6 @@ export default function Nav(props) {
       setSidebar(true);
     }
   };
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -35,7 +39,9 @@ export default function Nav(props) {
 
   return (
     <>
-      {sidebar ? <Sidebar toggle={toggleSidebar} isLogged={props.isLogged}/> : null}
+      {sidebar ? (
+        <Sidebar toggle={toggleSidebar} isLogged={props.isLogged} />
+      ) : null}
       <div className="nav">
         <div className="menu" onClick={toggleSidebar}>
           <IconButton>
@@ -57,39 +63,47 @@ export default function Nav(props) {
         {!props.isLogged ? (
           <Login />
         ) : (
-          <div className="avatar">
-            <IconButton onClick={handleClick}>
-              <Badge badgeContent={4} color="primary" max={99}>
+          <>
+           <NotificationIcon user={props.isLogged} showNotification={showNotification} setShowNotification={setShowNotification}/> 
+            {showNotification ? (
+                <Notification
+                  user={props.isLogged}
+                />
+            ) : null}
+            <div className="avatar">
+              <IconButton onClick={handleClick}>
                 <Avatar src={props.isLogged.photoURL} />
-              </Badge>
-            </IconButton>
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center",
-              }}
-            >
-              <MenuList>
-                <MenuItem><a href="/profile">Profile</a></MenuItem>
-                {/* <MenuItem>My account</MenuItem> */}
-                <MenuItem
-                  onClick={() => {
-                    auth.signOut();
-                  }}
-                >
-                  Logout
-                </MenuItem>
-              </MenuList>
-            </Popover>
-          </div>
+              </IconButton>
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+              >
+                <MenuList>
+                  <MenuItem>
+                    <a href="/profile">Profile</a>
+                  </MenuItem>
+                  {/* <MenuItem>My account</MenuItem> */}
+                  <MenuItem
+                    onClick={() => {
+                      auth.signOut();
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
+                </MenuList>
+              </Popover>
+            </div>
+          </>
         )}
       </div>
     </>
