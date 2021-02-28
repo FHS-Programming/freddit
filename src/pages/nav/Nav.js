@@ -17,9 +17,10 @@ import NotificationIcon from "../notification/NotificationIcon";
 
 export default function Nav(props) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [notiEl, setNotiEl] =  useState(null);
+
   const [sidebar, setSidebar] = useState(false);
-  const [showNotification, setShowNotification] = useState(false);
- 
+
   const toggleSidebar = () => {
     if (sidebar) {
       setSidebar(false);
@@ -34,7 +35,15 @@ export default function Nav(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const hideNotiMenu = () => {
+    setNotiEl(null);
+  }
+  const onNotiClick = (e) => {
+    setNotiEl(e.currentTarget);
+  }
   const open = Boolean(anchorEl);
+  const showNotifiBoolean= Boolean(notiEl);
   const id = open ? "simple-popover" : undefined;
 
   return (
@@ -64,12 +73,16 @@ export default function Nav(props) {
           <Login />
         ) : (
           <>
-           <NotificationIcon user={props.isLogged} showNotification={showNotification} setShowNotification={setShowNotification}/> 
-            {showNotification ? (
-                <Notification
-                  user={props.isLogged}
-                />
-            ) : null}
+            <NotificationIcon
+              user={props.isLogged}
+              onNotiClick={onNotiClick}
+            />
+              <Notification
+                showNotification={showNotifiBoolean}
+                user={props.isLogged}
+                anchorEl={notiEl}
+                onClose={hideNotiMenu}
+              />
             <div className="avatar">
               <IconButton onClick={handleClick}>
                 <Avatar src={props.isLogged.photoURL} />
